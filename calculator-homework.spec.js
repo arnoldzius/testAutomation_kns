@@ -116,16 +116,16 @@ test.only('Test with ninth build function', async ({ page }) => {
     });
 
 test.only('Test with seventh build function', async ({ page }) => {
-        await page.goto('https://testsheepnz.github.io/BasicCalculator');
-        await page.selectOption('#selectBuild','7');
-        await page.fill('#number1Field', '10');
-        await page.fill('#number2Field', '20');
-        await page.selectOption('#selectOperationDropdown','2');
-        await page.click('#calculateButton');
-        await page.click('#calculateButton');
-        const actResult = await page.inputValue('#numberAnswerField');
-        expect(actResult).toEqual('10');// fail, because when you push twice calculateButton, system repeats action as many times you push it
-        await page.click('#clearButton');
+    await page.goto('https://testsheepnz.github.io/BasicCalculator');
+    await page.selectOption('#selectBuild','7');
+    await page.fill('#number1Field', '10');
+    await page.fill('#number2Field', '20');
+    await page.selectOption('#selectOperationDropdown','2');
+    await page.click('#calculateButton');
+    await page.click('#calculateButton');
+    const actResult = await page.inputValue('#numberAnswerField');
+    expect(actResult).toEqual('10');// fail, because when you push twice calculateButton, system repeats action as many times you push it
+    await page.click('#clearButton');
     });
 
 
