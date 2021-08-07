@@ -25,7 +25,7 @@ mathCommand.forEach(mathCommand => {
     });
 
 //Prototype dalies istestavimas pavieniais testais
-test(`Test with prototype01`, async ({ page }) => {
+test.only(`Test with prototype01`, async ({ page }) => {
     
     await page.goto('https://testsheepnz.github.io/BasicCalculator');
     await page.selectOption('#selectBuild','0');
