@@ -6,10 +6,10 @@ exports.DuckStartPage = class DuckStartPage {
     await this.page.goto('https://start.duckduckgo.com/');
     }
 
-    async initiateSearch(searchCriteria) {
-    await this.page.fill('#search_form_input_homepage', searchCriteria);
-    await this.page.click("#search_button_homepage");
-    await this.page.waitForNavigation();
+    async initiateSearch() {
+    await this.page.fill('#search_form_input_homepage');
+    await this.page.fill("#search_button_homepage");
     }
+    
     
 }

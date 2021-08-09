@@ -1,17 +1,26 @@
 const { test, expect } = require('@playwright/test');
+const {calculatorStartPage} = require('../pages/calculatorStartPage');
 
+test.describe('',() =>{
+    let page;
+    test.beforeAll(async({browser})=>{
+        page = await browser.newPage();
+        startPage = new calculatorStartPage(page);
+        });
+test.beforeEach(async() =>{
+await startPage.goto();
+    });
 
 const mathCommand = [0,1,2,3,4];
 mathCommand.forEach(mathCommand => {
 
-    test.only(`Test with math function :${mathCommand}`, async ({ page }) => {
-    await page.goto('https://testsheepnz.github.io/BasicCalculator');
-    await page.selectOption('#selectBuild','0');
+    test.only(`Prototype build test:${mathCommand}`, async () => {
+    await page.selectOption('#selectBuild', '0');
     const a = Math.floor(Math.random() * 10);
     const b = Math.floor(Math.random() * 10);
     await page.fill('#number1Field', a);
     await page.fill('#number2Field', b);
-    await page.selectOption('#selectOperationDropdown', mathCommand);
+    await page.selectOption('#selectOperationDropdown',mathCommand);
     await page.click('#calculateButton');
     const actResult = await page.inputValue('#numberAnswerField');
     if (mathCommand = 0) {expResult = a + b;}
@@ -24,110 +33,93 @@ mathCommand.forEach(mathCommand => {
     });
     });
 
-//Prototype dalies istestavimas pavieniais testais
-test.only(`Test with prototype01`, async ({ page }) => {
-    
-    await page.goto('https://testsheepnz.github.io/BasicCalculator');
+//Prototype product testing, by single tests.
+test.only(`Prototype build Add function test`, async () => {
     await page.selectOption('#selectBuild','0');
-    await page.fill('#number1Field','1');
-    await page.fill('#number2Field','1');
+    await startPage.initiateFill();
     await page.selectOption('#selectOperationDropdown','0');
-    await page.click('#calculateButton');
+    await startPage.initiateClick();
     await page.check('#integerSelect');
     const actResult = await page.inputValue('#numberAnswerField');
-    const expResult0 = '2';
+    const expResult0 = '6';
     expect(actResult).toEqual(expResult0);
     await page.click('#clearButton');
-    
     });
-test(`Test with prototype02`, async ({ page }) => {
-    await page.goto('https://testsheepnz.github.io/BasicCalculator');
+test('Prototype build Subtract function test', async () => {
     await page.selectOption('#selectBuild','0');
-    await page.fill('#number1Field','1');
-    await page.fill('#number2Field','1');
+    await startPage.initiateFill();
     await page.selectOption('#selectOperationDropdown','1');
-    await page.click('#calculateButton');
+    await startPage.initiateClick();
     await page.check('#integerSelect');
     const actResult = await page.inputValue('#numberAnswerField');
-    const expResult1 = '0';
+    const expResult1 = '-4';
     expect(actResult).toEqual(expResult1);
     await page.click('#clearButton');
     });
-test(`Test with prototype03`, async ({ page }) => {
-    await page.goto('https://testsheepnz.github.io/BasicCalculator');
+test(`Prototype build Multiply function test`, async () => {
     await page.selectOption('#selectBuild','0');
-    await page.fill('#number1Field','1');
-    await page.fill('#number2Field','1');
+    await startPage.initiateFill();
     await page.selectOption('#selectOperationDropdown','2');
-    await page.click('#calculateButton');
+    await startPage.initiateClick();
     await page.check('#integerSelect');
     const actResult = await page.inputValue('#numberAnswerField');
-    const expResult2 = '1';
+    const expResult2 = '5';
     expect(actResult).toEqual(expResult2);
     await page.click('#clearButton');
     });
-test(`Test with prototype04`, async ({ page }) => {
-    await page.goto('https://testsheepnz.github.io/BasicCalculator');
+test(`Prototype build Divide function test`, async () => {
     await page.selectOption('#selectBuild','0');
-    await page.fill('#number1Field','1');
-    await page.fill('#number2Field','1');await page.selectOption('#selectOperationDropdown','3');
-    await page.click('#calculateButton');
+    await startPage.initiateFill();
+    await page.selectOption('#selectOperationDropdown','3');
+    await startPage.initiateClick();
     await page.check('#integerSelect');
     const actResult = await page.inputValue('#numberAnswerField');
-    const expResult3 = '1';
+    const expResult3 = '0';
     expect(actResult).toEqual(expResult3);
     await page.click('#clearButton');
     });
-test(`Test with prototype05`, async ({ page }) => {
-   await page.goto('https://testsheepnz.github.io/BasicCalculator');
+test(`Prototype build Concatanate function test`, async () => {
     await page.selectOption('#selectBuild','0');
-    await page.fill('#number1Field','1');
-    await page.fill('#number2Field','1');
+    await startPage.initiateFill();
     await page.selectOption('#selectOperationDropdown','4');
-    await page.click('#calculateButton');
+    await startPage.initiateClick();
     await page.check('#integerSelect');
     const actResult = await page.inputValue('#numberAnswerField');
-    const expResult4 = '11';
+    const expResult4 = '15';
     expect(actResult).toEqual(expResult4);
     await page.click('#clearButton');
     });
 
-    //testai su bug'ais
+    //Single tests with found bug's of calculator
 
-test.only('Test with forth build function', async ({ page }) => {
-    await page.goto('https://testsheepnz.github.io/BasicCalculator');
+test.only('4th build test_ Already checked checkbox', async () => {
     await page.selectOption('#selectBuild','4');
-    await page.fill('#number1Field', '0.89');
-    await page.fill('#number2Field', '5');
+    await startPage.initiateFill();
     await page.selectOption('#selectOperationDropdown','1');
-    await page.click('#calculateButton');
+    await startPage.initiateClick();
     await page.uncheck('#integerSelect'); // fail, because checkbox is allready checked.
-    const expResult = '5';
+    const expResult = '-4';
     expect(actResult).toEqual(expResult);
     await page.click('#clearButton');
     });
-test.only('Test with ninth build function', async ({ page }) => {
-    await page.goto('https://testsheepnz.github.io/BasicCalculator');
+test.only('9th build test_ Missing number2field ', async () => {
     await page.selectOption('#selectBuild','9');
-    await page.fill('#number1Field', '0.999');
-    await page.fill('#number2Field', '8');
+    await startPage.initiateFill();
     await page.selectOption('#selectOperationDropdown','3');
-    await page.click('#calculateButton');  // fail, because missing number2field and calculateButton
+    await startPage.initiateClick();  // fail, because missing number2field and calculateButton
     });
 
-test.only('Test with seventh build function', async ({ page }) => {
-    await page.goto('https://testsheepnz.github.io/BasicCalculator');
+test.only('7th build test _ No limit for answerButton', async () => {
     await page.selectOption('#selectBuild','7');
-    await page.fill('#number1Field', '10');
-    await page.fill('#number2Field', '20');
+    await startPage.initiateFill();
     await page.selectOption('#selectOperationDropdown','2');
-    await page.click('#calculateButton');
-    await page.click('#calculateButton');
+    await startPage.initiateClick();
+    await startPage.initiateClick();;
     const actResult = await page.inputValue('#numberAnswerField');
-    expect(actResult).toEqual('10');// fail, because when you push twice calculateButton, system repeats action as many times you push it
+    expect(actResult).toEqual('5');// fail, because when you push twice calculateButton, system repeats action as many times you push it
     await page.click('#clearButton');
     });
-
+});
 
 
 
